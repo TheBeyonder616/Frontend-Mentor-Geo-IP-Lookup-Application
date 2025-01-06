@@ -1,0 +1,48 @@
+@use "../abstract/mixin" as *;
+
+.heading-primary {
+  @include font-size(1.3);
+  font-weight: var(--fnt-mid);
+  color: var(--crl-white);
+}
+
+.heading-secondary {
+  &.header__list-item {
+    @include font-size(0.8);
+    font-weight: var(--fnt-large);
+    display: grid;
+    text-align: center;
+    color: var(--crl-secondary);
+    text-transform: uppercase;
+    line-height: 1.6;
+    @include media($desktop) {
+      text-align: start;
+      @include font-size(0.75);
+    }
+
+    .strong {
+      @include font-size();
+      color: var(--crl-primary);
+      text-transform: none;
+      @include media($desktop) {
+        @include font-size(0.9);
+      }
+    }
+  }
+}
+
+.heading-p {
+  @include font-size(0.8);
+  font-weight: var(--fnt-mid);
+  display: inline-flex;
+  gap: 0.5rem;
+  text-align: center;
+  color: var(--crl-error-cool);
+  .strong {
+    color: var(--crl-error);
+  }
+
+  &.main--error {
+    @include font-size();
+  }
+}

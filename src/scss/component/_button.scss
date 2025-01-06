@@ -1,0 +1,46 @@
+@use "../abstract/mixin" as *;
+.btn {
+  transform: translateY(0rem);
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  outline: 1px solid transparent;
+  transition: transform 0.35s cubic-bezier(0.075, 0.82, 0.165, 1),
+    border 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+    outline 0.3s cubic-bezier(0.075, 0.82, 0.165, 1),
+    box-shadow 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+  &:active {
+    transform: translateY(0.2rem);
+  }
+
+  &:focus,
+  &:hover {
+    border: 1px solid var(--crl-secondary);
+    outline: 1px solid var(--crl-secondary);
+  }
+
+  &.btn--search {
+    display: grid;
+    place-items: center;
+    position: relative;
+    width: clamp(1.5rem, 5vw, 3rem);
+
+    aspect-ratio: 1;
+  }
+
+  &.btn--error {
+    @include font-size();
+    @include insetShadow(0.45);
+    background-color: var(--crl-error-cool);
+    text-transform: uppercase;
+    color: var(--crl-white);
+    padding: 0.7rem 2.5rem;
+    transition: box-shadow 0.3s ease;
+
+    letter-spacing: 0.1rem;
+    font-weight: var(--fnt-bold);
+    &:hover,
+    :focus {
+      @include shadow(0.1);
+    }
+  }
+}

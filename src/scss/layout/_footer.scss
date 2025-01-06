@@ -1,0 +1,36 @@
+@use "../abstract/mixin" as *;
+
+.footer {
+  position: fixed;
+  width: 100%;
+  padding-block: 1rem;
+  bottom: 0;
+  z-index: 1000;
+  text-align: center;
+  mix-blend-mode: darken;
+  @include font-size(0.6);
+}
+
+.a {
+  display: inline-block;
+  padding: 0.2rem;
+  margin-inline: 0.2rem;
+  color: var(--crl-primary);
+  border-radius: 0.5rem;
+  border: 1px solid var(--crl-secondary);
+  outline: 1px solid transparent;
+
+  transform: translateY(0rem);
+  transition: outline 0.35s cubic-bezier(0.19, 1, 0.22, 1),
+    transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), font-style 0.3s ease;
+
+  &:hover,
+  &:focus {
+    outline: 1px solid var(--crl-primary);
+    font-style: italic;
+  }
+
+  &:active {
+    transform: translateY(0.3rem);
+  }
+}

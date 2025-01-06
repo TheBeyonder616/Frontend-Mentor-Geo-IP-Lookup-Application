@@ -1,0 +1,63 @@
+@use "../abstract/mixin" as *;
+
+.main {
+  height: 100vh;
+  position: relative;
+
+  &__spinner {
+    position: absolute;
+    inset: 0;
+    margin-inline: auto;
+    align-self: center;
+  }
+
+  &__error {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    align-content: center;
+    place-items: center;
+    gap: 2.5rem;
+
+    @include media($desktop) {
+      gap: 1rem;
+    }
+  }
+
+  &__error-message {
+    display: grid;
+    place-items: center;
+    gap: 0.2rem;
+  }
+}
+
+@supports (min-height: 100svh) {
+  .main {
+    height: 100svh;
+  }
+}
+
+.map-address {
+  width: 100%;
+  inset: 0;
+  position: absolute;
+}
+
+.loading-map {
+  --_white-light: rgb(210 210 210);
+  --_white-dark: rgb(150 150 150);
+  width: 100%;
+  inset: 0;
+  position: absolute;
+  background: linear-gradient(
+    90deg,
+    var(--_white-light) 0%,
+    var(--_white-light) 40%,
+    var(--_white-dark) 50%,
+    var(--_white-dark) 55%,
+    var(--_white-light) 75%,
+    var(--_white-light) 100%
+  );
+  background-size: 400%;
+  animation: move-background 2s linear infinite;
+}

@@ -1,0 +1,120 @@
+@use "../abstract/mixin" as *;
+.header {
+  min-height: 50vh;
+  background: url("/images/pattern-bg-mobile.png") center/cover no-repeat;
+  position: relative;
+
+  @include media($desktop) {
+    background-image: url("/images/pattern-bg-desktop.png");
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgb(var(--black) / 0.2);
+  }
+
+  //!================================[Book]
+
+  &__wrapper {
+    position: absolute;
+    width: clamp(28rem, 80%, 144rem);
+    inset: 0;
+    margin-inline: auto;
+    min-height: 75vh;
+    z-index: 500;
+    display: grid;
+    justify-items: center;
+    align-content: space-evenly;
+
+    @include media($tablet) {
+      min-height: 82vh;
+    }
+    @include media($desktop) {
+      min-height: 75vh;
+    }
+  }
+
+  &__info {
+    background-color: var(--crl-white);
+    width: clamp(20rem, 100%, 45rem);
+    position: relative;
+    min-height: 40vh;
+    padding-block: 2.5rem;
+    border-radius: 1.5rem;
+    transition-behavior: discrete;
+    transition: width 0.32s ease, aspect-ratio 0.32s ease;
+    @include insetShadow(0.15);
+
+    @include media($desktop) {
+      min-height: unset;
+      width: clamp(28rem, 100%, 144rem);
+      aspect-ratio: 6/1;
+      align-content: center;
+    }
+  }
+
+  &__list {
+    display: grid;
+    gap: 1rem;
+    place-items: center;
+    margin-inline: auto;
+
+    @include media($desktop) {
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+
+  &__list-item:not(:last-child) {
+    position: relative;
+
+    @include media($desktop) {
+      &::before {
+        content: "";
+        position: absolute;
+        width: 1px;
+        height: 100%;
+        right: -15%;
+        background-color: var(--crl-secondary);
+        opacity: 0.5;
+      }
+    }
+  }
+
+  //!==========[Loading]
+  &__spinner {
+    position: absolute;
+    inset: 0;
+    margin-inline: auto;
+    align-self: center;
+  }
+
+  //!==========[Error]
+
+  &__error {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    align-content: center;
+    place-items: center;
+    gap: 2.5rem;
+
+    @include media($desktop) {
+      gap: 1rem;
+    }
+  }
+
+  &__error-message {
+    display: grid;
+    place-items: center;
+    gap: 0.2rem;
+
+    @include media($desktop) {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+    }
+  }
+}

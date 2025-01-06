@@ -1,0 +1,17 @@
+:root {
+  //!==================[color]
+  --crl-primary: rgb(43 43 43);
+  --crl-secondary: rgb(150 150 150);
+  --crl-error: rgb(255 0 0);
+  --crl-error-cool: rgb(220 20 60);
+  --crl-white: rgb(255 255 255);
+  --crl-black: rgb(0 0 0);
+  --black: 0 0 0;
+  --white: 255 255 255;
+  //!==================[font]
+  --fnt-family: "Rubik";
+  --fnt-size: clamp(1.8rem, 1.5vw + 0.2rem, 2.5rem);
+  --fnt-large: 700;
+  --fnt-mid: 500;
+  --fnt-regular: 400;
+}

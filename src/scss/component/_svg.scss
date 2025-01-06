@@ -1,0 +1,63 @@
+.svg-container {
+  --_width: clamp(2.5rem, 5vw, 10rem);
+  --_aspect-ratio: 1;
+  width: var(--_width);
+  aspect-ratio: var(--_aspect-ratio);
+
+  &.search--container {
+    --_width: clamp(1.5rem, 2vw, 2rem);
+    color: var(--crl-white);
+    stroke: var(--crl-white);
+    fill: var(--crl-white);
+    position: absolute;
+    opacity: 0;
+    rotate: 90deg;
+    visibility: hidden;
+    pointer-events: none;
+    transition-behavior: discrete;
+    transition: opacity 0.5s ease, visibility 0.5s ease, pointer-event 0.5s,
+      rotate 0.5s;
+  }
+
+  &.spinner--container {
+    &.ip-address__spinner {
+      --_width: clamp(2rem, 2vw, 2.5rem);
+      fill: var(--crl-white);
+    }
+
+    &.header__spinner {
+      --_width: clamp(6rem, 8vw, 10rem);
+    }
+
+    &.main__spinner {
+      --_width: clamp(8rem, 10vw, 12rem);
+    }
+
+    .svg {
+      animation: Spin 0.8s linear infinite;
+    }
+  }
+
+  &.error--container {
+    --_width: clamp(4rem, 6vw, 7.5rem);
+    --_aspect-ratio: 1.2/1;
+    color: var(--crl-error-cool);
+    stroke: var(--crl-error-cool);
+    animation: Error 1s ease-in-out forwards;
+
+    &.main--error {
+      --_width: clamp(8rem, 10vw, 11rem);
+    }
+  }
+
+  &.marker--container {
+    --_width: clamp(3rem, 6vw, 5rem);
+    fill: var(--crl-black);
+  }
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

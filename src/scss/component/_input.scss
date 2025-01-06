@@ -1,0 +1,85 @@
+@use "../abstract/mixin" as *;
+
+.search-input {
+  --_padding: clamp(1.5rem, 2vw, 2.5rem);
+  width: 100%;
+  border-radius: inherit;
+  padding-block: var(--_padding);
+  padding-inline: calc(var(--_padding) * 0.6);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: box-shadow 0.25s ease-in-out;
+  &:placeholder-shown {
+    @include insetShadow(0.3);
+  }
+
+  &::placeholder {
+    @include font-size(0.6);
+    font-weight: var(--fnt-large);
+    color: var(--crl-secondary);
+
+    @include media($mobileLg) {
+      @include font-size(0.6);
+    }
+    @include media($desktop) {
+      @include font-size(0.8);
+    }
+  }
+}
+
+.search-label {
+  width: clamp(20rem, 80%, 29rem);
+  border-radius: 1rem;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid transparent;
+  outline: 1px solid transparent;
+  transition: box-shadow 0.25s ease-in-out,
+    border 0.3s cubic-bezier(0.165, 0.84, 0.44, 1),
+    outline 0.3s cubic-bezier(0.445, 0.05, 0.55, 0.95), width 0.35s ease-in-out;
+  @include media($desktop) {
+    width: clamp(20rem, 80%, 65rem);
+  }
+
+  &:has(.search-input:not(:placeholder-shown)),
+  &:has(.search-input:focus) {
+    width: clamp(25rem, 100%, 45rem);
+    border: 1px solid var(--crl-secondary);
+    outline: 1px solid var(--crl-secondary);
+    @include shadow(0.5);
+    @include media($desktop) {
+      width: clamp(20rem, 100%, 75rem);
+    }
+  }
+
+  &:has(.search-input:placeholder-shown) .arrow--container,
+  &:has(.search-input:not(:placeholder-shown)) .close--container {
+    opacity: 1;
+    pointer-events: all;
+    visibility: visible;
+    rotate: 0deg;
+  }
+
+  .ip-address__spinner {
+    opacity: 1 !important;
+    pointer-events: none;
+    visibility: visible !important;
+    z-index: 300 !important;
+    margin-inline: auto;
+  }
+}
+
+.search__icons {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  aspect-ratio: 1/1.2;
+  background-color: var(--crl-black);
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  display: grid;
+  place-items: center;
+}
