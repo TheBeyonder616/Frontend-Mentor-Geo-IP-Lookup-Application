@@ -20,7 +20,7 @@ export const API = {
   TIME_OUT: 10000,
   IP_URL: "https://api.ipify.org?format=json",
   URL(query: string): string {
-    return `http://ip-api.com/json/${query}`;
+    return `https://ip-api.com/json/${query}`;
   },
   DOMAIN_URL(domain: string): string {
     return `https://dns.google/resolve?name=${domain}`;
