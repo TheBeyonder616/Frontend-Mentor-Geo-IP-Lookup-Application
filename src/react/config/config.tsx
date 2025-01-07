@@ -16,7 +16,6 @@ export type IconKeys = (typeof ICON)[keyof typeof ICON];
 //?============================================
 //?============================================
 //!============================================[API - GEOLOCATION]
-const API_KEY: string = import.meta.env.VITE_API_KEY;
 export const API = {
   TIME_OUT: 10000,
   IP_URL: "https://api.ipify.org?format=json",
