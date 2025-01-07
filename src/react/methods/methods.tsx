@@ -56,6 +56,7 @@ export default class Method {
       const response = await fetch(API.DOMAIN_URL(domain), Method.SIGNAL());
       if (!response.ok) throw new Error(`Error: ${response.status}`);
       const data: DomainType = await response.json();
+      console.log(data);
       const { Answer } = data;
       if (!Answer || Answer.length === 0 || !Answer[0].data)
         throw new Error("No valid IP address found in the response.");
@@ -90,7 +91,6 @@ export default class Method {
       const response = await fetch(API.URL(ipAddress), Method.SIGNAL());
       if (!response.ok) throw new Error(`${response.status}`);
       const data = await response.json();
-      console.log(data);
       const extractedData = Method.extractData(data);
       return extractedData;
     } catch (err) {

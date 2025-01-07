@@ -32,13 +32,6 @@ export const API = {
 //?============================================
 //!============================================[Data]
 export type ExtractedDataType = {
-  // query: string;
-  // isp: string;
-  // city: string;
-  // timezone: string;
-  // lat: number;
-  // lon: number;
-
   ipAddress: string;
   cityName: string;
   latitude: number;
