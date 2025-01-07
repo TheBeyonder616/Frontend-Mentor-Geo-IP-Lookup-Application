@@ -15,29 +15,36 @@ export type IconKeys = (typeof ICON)[keyof typeof ICON];
 //?============================================
 //?============================================
 //?============================================
-//!============================================[API - GEO IPIFY]
+//!============================================[API - GEOLOCATION]
+const API_KEY: string = import.meta.env.VITE_API_KEY;
 export const API = {
   TIME_OUT: 10000,
   IP_URL: "https://api.ipify.org?format=json",
-  URL(query: string): string {
-    return `https://ip-api.com/json/${query}`;
+  URL(ipAddress: string): string {
+    return `https://freeipapi.com/api/json/${ipAddress}`;
   },
   DOMAIN_URL(domain: string): string {
-    return `https://dns.google/resolve?name=${domain}`;
+    return `https://dns.google/resolve?name=${domain}&format=json`;
   },
 } as const;
-
 //?============================================
 //?============================================
 //?============================================
 //!============================================[Data]
 export type ExtractedDataType = {
-  query: string;
-  isp: string;
-  city: string;
-  timezone: string;
-  lat: number;
-  lon: number;
+  // query: string;
+  // isp: string;
+  // city: string;
+  // timezone: string;
+  // lat: number;
+  // lon: number;
+
+  ipAddress: string;
+  cityName: string;
+  latitude: number;
+  longitude: number;
+  timeZone: string;
+  timeZones: string[];
 };
 
 export const DEBOUNCED_SEARCH_TIMER = 500;

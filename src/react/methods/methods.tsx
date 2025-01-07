@@ -4,6 +4,10 @@ type DataType = {
   ip: string;
 };
 
+type DomainType = {
+  Answer: Array<{ data: string }>;
+};
+
 export default class Method {
   //?===========================================[Private]
   private static SIGNAL(timeout: number = API.TIME_OUT) {
@@ -13,8 +17,8 @@ export default class Method {
   private static handleThrownError(err: unknown): string {
     return err instanceof Error ? err.message : "An unknown error occurred";
   }
+
   private static handleError(err: unknown): ErrorType {
-    console.error("Error fetching JSON data:", err);
     if (err instanceof Error && err.message) {
       return { error: `Error: ${err.message}` };
     }
@@ -22,15 +26,16 @@ export default class Method {
   }
 
   private static extractData(data: ExtractedDataType): ExtractedDataType {
-    const { isp, query, city, timezone, lat, lon } = data;
-    if (!lat && !lon) {
+    const { longitude, latitude, ipAddress, timeZone, timeZones, cityName } =
+      data;
+    if (!latitude && !longitude) {
       throw new Error(
         `The provided domain or IP does not have a valid location. Missing fields: ${
-          lat ? "" : "latitude , "
-        }${lon ? "" : "longitude"}`
+          latitude ? "" : "latitude , "
+        }${longitude ? "" : "longitude"}`
       );
     }
-    return { query, isp, city, timezone, lat, lon };
+    return { longitude, latitude, ipAddress, timeZone, timeZones, cityName };
   }
 
   private static async getIPAddress(): Promise<string> {
@@ -42,6 +47,29 @@ export default class Method {
     } catch (err) {
       throw new Error(Method.handleThrownError(err));
     }
+  }
+
+  private static async convertDomainToIpAddress(
+    domain: string
+  ): Promise<string> {
+    try {
+      const response = await fetch(API.DOMAIN_URL(domain), Method.SIGNAL());
+      if (!response.ok) throw new Error(`Error: ${response.status}`);
+      const data: DomainType = await response.json();
+      const { Answer } = data;
+      if (!Answer || Answer.length === 0 || !Answer[0].data)
+        throw new Error("No valid IP address found in the response.");
+      return Answer[0].data;
+    } catch (err) {
+      throw new Error(Method.handleThrownError(err));
+    }
+  }
+
+  private static async returnIpaddress(
+    domainOrIpAddress: string
+  ): Promise<string> {
+    if (Method.isValidIP(domainOrIpAddress)) return domainOrIpAddress;
+    return await Method.convertDomainToIpAddress(domainOrIpAddress);
   }
 
   //?===========================================[PUBLIC]
@@ -59,10 +87,10 @@ export default class Method {
   public static async getJsonData(): Promise<ExtractedDataType | ErrorType> {
     try {
       const ipAddress = await Method.getIPAddress();
-      if (!ipAddress) throw new Error("IP address not found");
       const response = await fetch(API.URL(ipAddress), Method.SIGNAL());
       if (!response.ok) throw new Error(`${response.status}`);
       const data = await response.json();
+      console.log(data);
       const extractedData = Method.extractData(data);
       return extractedData;
     } catch (err) {
@@ -74,7 +102,8 @@ export default class Method {
     ipAddressOrDomain: string
   ): Promise<ExtractedDataType | ErrorType> {
     try {
-      const response = await fetch(API.URL(ipAddressOrDomain), Method.SIGNAL());
+      const ipAddress = await Method.returnIpaddress(ipAddressOrDomain);
+      const response = await fetch(API.URL(ipAddress), Method.SIGNAL());
       if (!response.ok) throw new Error(`${response.status}`);
       const data = await response.json();
       const extractedData = Method.extractData(data);

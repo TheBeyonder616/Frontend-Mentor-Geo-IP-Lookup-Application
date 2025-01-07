@@ -22,10 +22,10 @@ const StatusWrapperHeader = ({
 }: StatusWrapperHeaderPropType) => {
   const ListData: ListDataType | null = data
     ? {
-        "ip address": data.query,
-        location: data.city,
-        timeZone: data.timezone,
-        isp: data.isp,
+        "ip address": data.ipAddress,
+        location: data.cityName,
+        timeZone: `${[data.timeZones]} ${data.timeZone}`,
+        isp: data.timeZone,
       }
     : null;
 

@@ -21,7 +21,7 @@ const StatusWrapperMain = ({ isLoading, error, data }: StatusWrapperProps) => {
           />
         );
       case !isLoading && error === null && data !== null:
-        return <MapComponent lat={data.lat} lng={data.lon} />;
+        return <MapComponent lat={data.latitude} lng={data.longitude} />;
       case !isLoading && error !== null:
         return (
           <section className="main__error">
