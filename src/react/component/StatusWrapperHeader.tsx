@@ -20,11 +20,15 @@ const StatusWrapperHeader = ({
   error,
   debouncedReFetchData,
 }: StatusWrapperHeaderPropType) => {
+  const timeZone =
+    data && data.timeZone
+      ? `${data.timeZones[0].split(",")[0]} ${data.timeZone}`
+      : "";
   const ListData: ListDataType | null = data
     ? {
         "ip address": data.ipAddress,
         location: data.cityName,
-        timeZone: `${[data.timeZones]} ${data.timeZone}`,
+        timeZone: timeZone,
         isp: data.timeZone,
       }
     : null;
