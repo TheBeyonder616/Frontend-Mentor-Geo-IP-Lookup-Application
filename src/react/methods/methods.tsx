@@ -1,11 +1,20 @@
 import { API, ExtractedDataType, ErrorType } from "../config/config";
 
-type DataType = {
+type IpDataType = {
   ip: string;
 };
 
 type DomainType = {
   Answer: Array<{ data: string }>;
+};
+
+type APIDataType = {
+  ipAddress: string;
+  cityName: string;
+  latitude: number;
+  longitude: number;
+  timeZone: string;
+  timeZones: string[];
 };
 
 export default class Method {
@@ -25,9 +34,13 @@ export default class Method {
     return { error: "An unknown error occurred." };
   }
 
-  private static extractData(data: ExtractedDataType): ExtractedDataType {
+  private static extractData(
+    data: APIDataType,
+    isp: string = ""
+  ): ExtractedDataType {
     const { longitude, latitude, ipAddress, timeZone, timeZones, cityName } =
       data;
+
     if (!latitude && !longitude) {
       throw new Error(
         `The provided domain or IP does not have a valid location. Missing fields: ${
@@ -35,14 +48,25 @@ export default class Method {
         }${longitude ? "" : "longitude"}`
       );
     }
-    return { longitude, latitude, ipAddress, timeZone, timeZones, cityName };
+
+    const zone =
+      timeZones && timeZone ? `${timeZones[0].split(",")[0]} ${timeZone}` : "";
+
+    return {
+      ipAddress,
+      city: cityName,
+      lat: latitude,
+      long: longitude,
+      isp: isp,
+      timeZone: zone,
+    };
   }
 
   private static async getIPAddress(): Promise<string> {
     try {
       const response = await fetch(API.IP_URL, Method.SIGNAL());
       if (!response.ok) throw new Error(`Error: ${response.status}`);
-      const { ip }: DataType = await response.json();
+      const { ip }: IpDataType = await response.json();
       return ip;
     } catch (err) {
       throw new Error(Method.handleThrownError(err));
@@ -56,7 +80,6 @@ export default class Method {
       const response = await fetch(API.DOMAIN_URL(domain), Method.SIGNAL());
       if (!response.ok) throw new Error(`Error: ${response.status}`);
       const data: DomainType = await response.json();
-      console.log(data);
       const { Answer } = data;
       if (!Answer || Answer.length === 0 || !Answer[0].data)
         throw new Error("No valid IP address found in the response.");

@@ -14,21 +14,18 @@ type StatusWrapperHeaderPropType = {
   error: ErrorType | null;
   debouncedReFetchData: DebouncedFunction<() => Promise<void>>;
 };
+
 const StatusWrapperHeader = ({
   data,
   isLoading,
   error,
   debouncedReFetchData,
 }: StatusWrapperHeaderPropType) => {
-  const timeZone =
-    data && data.timeZone
-      ? `${data.timeZones[0].split(",")[0]} ${data.timeZone}`
-      : "";
   const ListData: ListDataType | null = data
     ? {
         "ip address": data.ipAddress,
-        location: data.cityName,
-        timeZone: timeZone,
+        location: data.city,
+        timeZone: data.timeZone,
         isp: data.timeZone,
       }
     : null;

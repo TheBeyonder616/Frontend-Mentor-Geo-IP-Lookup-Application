@@ -32,11 +32,11 @@ export const API = {
 //!============================================[Data]
 export type ExtractedDataType = {
   ipAddress: string;
-  cityName: string;
-  latitude: number;
-  longitude: number;
+  city: string;
+  lat: number;
+  long: number;
   timeZone: string;
-  timeZones: string[];
+  isp?: string;
 };
 
 export const DEBOUNCED_SEARCH_TIMER = 500;
