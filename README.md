@@ -19,8 +19,8 @@ This is a solution to the Geo IP Lookup Application project. The project allows 
 
 ### Screenshot
 
-![Geo IP Lookup Desktop](public/desktop.png)
-![Geo IP Lookup Mobile](public/mobile.png)
+![Geo IP Lookup Desktop](./design/desktop.png)
+![Geo IP Lookup Mobile](./design/mobile.png)
 
 ### Links
 
