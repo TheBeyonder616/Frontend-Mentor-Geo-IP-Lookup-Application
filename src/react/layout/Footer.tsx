@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="footer">
       Challenge by
       <a
-        className="footer-link"
+        className="a"
         href={FRONT_END_MENTOR_URL}
         target="_blank"
         rel="noopener noreferrer"
@@ -14,7 +14,7 @@ const Footer = () => {
       </a>
       . Coded by
       <a
-        className="footer-link"
+        className="a"
         href={MY_URL_Link}
         target="_blank"
         rel="noopener noreferrer"
